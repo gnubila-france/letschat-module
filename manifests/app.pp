@@ -22,7 +22,9 @@ class letschat::app (
 
   $dependencies = ["gcc-c++", "make", "git", "libicu-devel"]
   
-  class { 'nodejs': }
+  class { 'nodejs':
+    require => Class['python'],  
+  }
   
   class { 'python': }
   
@@ -35,6 +37,7 @@ class letschat::app (
     ensure   => present,
     provider => git,
     source   => 'https://github.com/sdelements/lets-chat.git',
+    require  => Class['nodejs'],
   }
   
   file { "$deploy_dir/settings.yml":
@@ -53,5 +56,17 @@ class letschat::app (
     enable    => 'true',
     subscribe => File["$deploy_dir/settings.yml"],
     require   => File["/etc/init.d/letschat"],
+  }
+  exec { "touch install.lock":
+    cwd    => "$deploy_dir",
+    onlyif => "/etc/init.d/letschat status",
+    unless => "test -f install.lock",
+    path   => ["/bin","/usr/bin"],
+  } ->  
+  exec { "npm install":
+    cwd     => "$deploy_dir",
+    path    => "/usr/bin",
+    unless  => "test -f install.lock",
+    require => Vcsrepo[$deploy_dir],
   }
 }
