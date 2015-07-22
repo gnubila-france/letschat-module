@@ -11,7 +11,9 @@ class letschat::db (
     bind_ip             => $bind_ip,
   }->
   
-  class { '::mongodb::server':}
+  class { '::mongodb::server':
+    port => $database_port
+  }
 
   class { '::mongodb::client': }
   
