@@ -41,4 +41,17 @@ class letschat::app (
     ensure  => present,
     content => template("letschat/settings.yml.erb"),
   }
+  file { "/etc/init.d/letschat":
+    ensure  => present,
+    content => template("letschat/letschat.erb"),
+    mode    => "0755",
+    owner   => "root",
+    group   => "root",
+  }
+  service { "letschat":
+    ensure    => 'running',
+    enable    => 'true',
+    subscribe => File["$deploy_dir/settings.yml"],
+    require   => File["/etc/init.d/letschat"],
+  }
 }
