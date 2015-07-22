@@ -9,11 +9,12 @@
     * [Setup requirements](#setup-requirements)
     * [Beginning with letschat](#beginning-with-letschat)
 4. [Usage - Configuration options and additional functionality](#usage)
-    * [Class: letschat](#classletschat)
-    * [Class: letschat::app](#classletschatapp)
-    * [Class: letschat::db](#classletschatdb)
+    * [Class: letschat](#class-letschat)
+    * [Class: letschat::app](#class-letschatapp)
+    * [Class: letschat::db](#class-letschatdb)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
+7. [Addition Information](#Additional Information)
 
 ## Overview
 
@@ -119,40 +120,60 @@ the Node.js application, specifying which features to enable, their settings, an
 the web application can reach the MongoDB backend.
 ##### Parameters within `letschat::app`:
 ####`deploy_dir`
+The directory to deploy the Let's Chat application to. Defaults to '/etc/letschat'
 ####`http_enabled`
+Boolean to specify whether http is enabled. Defaults to 'true'
 ####`http_port`
+Port for Let's Chat to serve http traffic on. Defaults to '5000'
 ####`lc_bind_address`
+Configured Let's Chat process to bind to and listen for connections from users on this address. Defaults to '0.0.0.0'
 ####`ssl_enabled`
+Boolean to specify whether ssl is enabled. Defaults to 'false'
 ####`ssl_port`
+Port for Let's Chat to serve https traffic on. Defaults to '5001'
 ####`ssl_key`
+Path to SSL key. Defaults to 'key.pem'
 ####`ssl_cert`
+Path to SSL certificate. Defaults to 'certificate.pem'
 ####`xmpp_enabled`
+Boolean to specify whether xmpp is enabled. Defaults to 'false'
 ####`xmpp_port`
+Port for Let's Chat to serve xmpp traffic on. Defaults to '5222'
 ####`xmpp_domain`
+Domain for xmpp connections. Defaults to 'example.com'
 ####`dbuser`
+Database username for accessing MongoDB Let's Chat Database. Defaults to 'lcadmin'
 ####`dbpass`
+Database password (plain-text) for accessing MongoDB Let's Chat Database. Defaults to 'changeme'
 ####`dbhost`
+Hostname of MongoDB server. Defaults to 'localhost'
 ####`dbname`
+Database name of the Let's Chat Database. Defaults to 'letschat'
 ####`dbport`
+Port number that MongoDB is listening on. Defaults to '27017'
 ####`cookie`
+Cookie. Defaults to 'secretsauce'
 ####`authproviders`
+Array of authentication providers for authenticating with Let's Chat. Accepts the following values: `local`, `kerberos`, and `ldap`.
+Defaults to 'local'
 ####`registration`
+Boolean to determine if new users can signup to Let's Chat. Defaults to 'true'
 
 
 #### Class:`letschat::db`
 The `letschat::db` class configures MongoDB in very limited scope by wrapping the MongoDB module.
 ##### Parameters within `letschat::app`:
 ####`user`
-Name of the user for database
+Name of the user for database. Defaults to 'lcadmin'
 ####`pass`
-Plain-text user password (will be hashed)
+Plain-text user password (will be hashed). Defaults to 'changeme'
 ####`bind_ip`
 This setting can be used to configure MonogDB process to bind to and listen for connections from applications on this address. 
-If not specified, the module will use the default '0.0.0.0'.
+Defaults to '0.0.0.0'.
 ####`database_name`
-This setting is used to configure the name of the MongoDB database.
+This setting is used to configure the name of the MongoDB database. Defaults to 'letschat'
 ####`database_port`
-Specifies a TCP port for the server instance to listen for client connections. Default: 27017
+Specifies a TCP port for the server instance to listen for client connections. Defaults to '27017'
 
 ## Limitations
 
@@ -166,3 +187,7 @@ This will be fixed in the future as the MongoDB module accepts a hex encoded md5
 ## Development
 
 Pull requests welcome. Please create a new feature branch for any additions.
+
+## Additional Information
+
+Any additional information and configuration regarding Let's Chat can be found on their [Wiki Page](https://github.com/sdelements/lets-chat/wiki)
