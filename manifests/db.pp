@@ -10,9 +10,9 @@ class letschat::db (
     manage_package_repo => true,
     bind_ip             => $bind_ip,
   }->
-  
+
   class { '::mongodb::server':
-    port => $database_port
+    port => $database_port,
   }
 
   class { '::mongodb::client': }

@@ -1,5 +1,5 @@
 class { 'letschat::db':
-  user          => 'lcadmin', 
+  user          => 'lcadmin',
   pass          => 'unsafepassword',
   bind_ip       => '0.0.0.0',
   database_name => 'letschat',

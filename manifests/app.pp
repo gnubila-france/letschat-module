@@ -21,9 +21,9 @@ class letschat::app (
 ) inherits letschat::params {
 
   $dependencies = ['gcc-c++', 'make', 'git', 'libicu-devel']
-  
+ 
   class { 'nodejs':
-    require => Class['python'],  
+    require => Class['python'],
   }
   
   class { 'python': }
@@ -31,7 +31,7 @@ class letschat::app (
   package { $dependencies:
     ensure => present,
     before => Class['nodejs'],
-  } 
+  }
 
   vcsrepo { $deploy_dir:
     ensure   => present,
@@ -62,7 +62,7 @@ class letschat::app (
     onlyif => '/etc/init.d/letschat status',
     unless => 'test -f install.lock',
     path   => ['/bin','/usr/bin'],
-  } ->  
+  } ->
   exec { 'npm install':
     cwd     => $deploy_dir,
     path    => '/usr/bin',
