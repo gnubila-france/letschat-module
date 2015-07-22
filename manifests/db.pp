@@ -1,9 +1,9 @@
 class letschat::db (
-  $user           = $letschat::params::dbuser,
-  $pass           = $letschat::params::dbpass,
+  $user           = $letschat::params::db_user,
+  $pass           = $letschat::params::db_pass,
   $bind_ip        = $letschat::params::mongo_bind_address,
-  $database_name  = $letschat::params::dbname,
-  $database_port  = $letschat::params::dbport,
+  $database_name  = $letschat::params::db_name,
+  $database_port  = $letschat::params::db_port,
 ) inherits letschat::params {
 
   class { '::mongodb::globals':
