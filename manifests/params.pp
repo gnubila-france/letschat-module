@@ -6,7 +6,7 @@ class letschat::params {
   $ssl_port           = '5001'
   $ssl_key            = 'key.pem'
   $ssl_cert           = 'certificate.pem'
-  $xmpp_enabled       = 'false'
+  $xmpp_enabled       = false
   $xmpp_port          = '5222'
   $xmpp_domain        = 'example.com'
   $db_user            = 'lcadmin'

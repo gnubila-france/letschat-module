@@ -16,9 +16,9 @@ class letschat::db (
   }
 
   class { '::mongodb::client': }
-  
+
   mongodb::db { $database_name:
-    user          => $user,
-    password      => $pass,
+    user     => $user,
+    password => $pass,
   }
 }
