@@ -40,7 +40,7 @@ class letschat::app (
     require  => Class['nodejs'],
   }
   
-  file { "$deploy_dir/settings.yml":
+  file { "${deploy_dir}/settings.yml":
     ensure  => present,
     content => template('letschat/settings.yml.erb'),
   }
@@ -54,7 +54,7 @@ class letschat::app (
   service { 'letschat':
     ensure    => 'running',
     enable    => true,
-    subscribe => File["$deploy_dir/settings.yml"],
+    subscribe => File["${deploy_dir}/settings.yml"],
     require   => File['/etc/init.d/letschat'],
   }
   exec { 'touch install.lock':
