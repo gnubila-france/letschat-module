@@ -20,7 +20,7 @@ class letschat::app (
   $registration    = $letschat::params::registration,
 ) inherits letschat::params {
 
-  $dependencies = ["gcc-c++", "make", "git", "libicu-devel"]
+  $dependencies = ['gcc-c++', 'make', 'git', 'libicu-devel']
   
   class { 'nodejs':
     require => Class['python'],  
@@ -42,31 +42,31 @@ class letschat::app (
   
   file { "$deploy_dir/settings.yml":
     ensure  => present,
-    content => template("letschat/settings.yml.erb"),
+    content => template('letschat/settings.yml.erb'),
   }
-  file { "/etc/init.d/letschat":
+  file { '/etc/init.d/letschat':
     ensure  => present,
-    content => template("letschat/letschat.erb"),
-    mode    => "0755",
-    owner   => "root",
-    group   => "root",
+    content => template('letschat/letschat.erb'),
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
   }
-  service { "letschat":
+  service { 'letschat':
     ensure    => 'running',
-    enable    => 'true',
+    enable    => true,
     subscribe => File["$deploy_dir/settings.yml"],
     require   => File["/etc/init.d/letschat"],
   }
-  exec { "touch install.lock":
-    cwd    => "$deploy_dir",
-    onlyif => "/etc/init.d/letschat status",
-    unless => "test -f install.lock",
-    path   => ["/bin","/usr/bin"],
+  exec { 'touch install.lock':
+    cwd    => $deploy_dir,
+    onlyif => '/etc/init.d/letschat status',
+    unless => 'test -f install.lock',
+    path   => ['/bin','/usr/bin'],
   } ->  
-  exec { "npm install":
-    cwd     => "$deploy_dir",
-    path    => "/usr/bin",
-    unless  => "test -f install.lock",
+  exec { 'npm install':
+    cwd     => $deploy_dir,
+    path    => '/usr/bin',
+    unless  => 'test -f install.lock',
     require => Vcsrepo[$deploy_dir],
   }
 }

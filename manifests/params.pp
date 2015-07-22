@@ -18,5 +18,5 @@ class letschat::params {
   $lc_deploy_dir      = '/etc/letschat'
   $cookie             = 'secretsauce'
   $authproviders      = 'local'
-  $registration       = 'true'
+  $registration       = true
 }
