@@ -14,7 +14,7 @@
     * [Class: letschat::db](#class-letschatdb)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
-7. [Addition Information](#Additional Information)
+7. [Additional Information](#Additional-Information)
 
 ## Overview
 
