@@ -21,7 +21,6 @@ class letschat::app (
 ) inherits letschat::params {
 
   $dependencies = ['gcc-c++', 'make', 'git', 'libicu-devel']
- 
   class { 'nodejs':
     require => Class['python'],
   }
