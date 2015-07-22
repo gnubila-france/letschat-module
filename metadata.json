@@ -1,6 +1,6 @@
 {
   "name": "jay-letschat",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "author": "Jay Wallace",
   "summary": "This module deploys Let's Chat, a Self-hosted chat app for small teams.",
   "license": "Apache 2.0",
