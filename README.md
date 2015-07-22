@@ -6,11 +6,12 @@
 2. [Module Description - What the module does and why it is useful](#module-description)
 3. [Setup - The basics of getting started with letschat](#setup)
     * [What letschat affects](#what-letschat-affects)
+    * [Setup requirements](#setup-requirements)
     * [Beginning with letschat](#beginning-with-letschat)
-    * [Configuring MongoDB](#Configuring-MongoDB)
-    * [Configuring letschat](#Configuring-letschat)
 4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+    * [Class: letschat](#class-letschat)
+    * [Class: letschat::app](#class-letschatapp)
+    * [Class: letschat::db](#class-letschatdb)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
 
@@ -101,27 +102,67 @@ class { 'letschat::app':
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+### Classes
+This module contains 4 classes. The `letschat` class configures both MongoDB and the 
+web application with the values set in the `letschat::params` class. The `letschat::db` class configures
+MongoDB in very limited scope by wrapping the MongoDB module. The `letschat::app` class is used for configuring
+the Node.js application, specifying which features to enable, their settings, and specifying configuration so 
+the web application can reach the MongoDB backend.
 
-## Reference
+#### Class:`letschat`
+The `letschat` class configures both MongoDB and the 
+web application. This class is a basic include of the `letschat:app` and `letschat::db` class with the all parameters sourced from the `letschat::params` class.
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+#### Class:`letschat::app`
+The `letschat::app` class is used for configuring
+the Node.js application, specifying which features to enable, their settings, and specifying configuration so 
+the web application can reach the MongoDB backend.
+##### Parameters within `letschat::app`:
+####`deploy_dir`
+####`http_enabled`
+####`http_port`
+####`lc_bind_address`
+####`ssl_enabled`
+####`ssl_port`
+####`ssl_key`
+####`ssl_cert`
+####`xmpp_enabled`
+####`xmpp_port`
+####`xmpp_domain`
+####`dbuser`
+####`dbpass`
+####`dbhost`
+####`dbname`
+####`dbport`
+####`cookie`
+####`authproviders`
+####`registration`
+
+
+#### Class:`letschat::db`
+The `letschat::db` class configures MongoDB in very limited scope by wrapping the MongoDB module.
+##### Parameters within `letschat::app`:
+####`user`
+Name of the user for database
+####`pass`
+Plain-text user password (will be hashed)
+####`bind_ip`
+This setting can be used to configure MonogDB process to bind to and listen for connections from applications on this address. 
+If not specified, the module will use the default '0.0.0.0'.
+####`database_name`
+This setting is used to configure the name of the MongoDB database.
+####`database_port`
+Specifies a TCP port for the server instance to listen for client connections. Default: 27017
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+This module has only been tested on CentOS 6, but should function without issues on CentOS/RHEL 5 & 6. At this point in time
+only a limited number of parameters are exposed with regards to both the Node.js application and MongoDB. It is also worth noting
+that the database `password` is stored as a parameter in plain text. Users should likely be storing this value as eyaml in hiera.
+This will be fixed in the future as the MongoDB module accepts a hex encoded md5 hash of "user1:mongo:pass1".
+
+
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
-
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header
+Pull requests welcome. Please create a new feature branch for any additions.
