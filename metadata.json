@@ -1,0 +1,35 @@
+{
+  "name": "jay-letschat",
+  "version": "0.1.0",
+  "author": "Jay Wallace",
+  "summary": "This module deploys Let's Chat, a Self-hosted chat app for small teams.",
+  "license": "Apache 2.0",
+  "source": "https://github.com/mootpt/letschat-module",
+  "issues_url": "https://github.com/mootpt/letschat-module/issues",
+  "project_page": "https://github.com/mootpt/letschat-module",
+  "tags": ["chat", "webapp", "mongodb", "node", "nodejs", "npm"],
+  "operatingsystem_support": [
+    {
+      "operatingsystem":"RedHat",
+          "operatingsystemmajrelease": [
+            "5",
+            "6"
+          ]
+    },
+    {
+      "operatingsystem":"CentOS",
+          "operatingsystemmajrelease": [
+            "5",
+            "6"
+          ]
+    }
+  ],
+  "dependencies": [
+    {"version_requirement":">= 1.0.0","name":"puppetlabs-stdlib"},
+    {"version_requirement":">= 0.11.0","name":"puppetlabs-mongodb"},
+    {"version_requirement":">= 0.8.0","name":"puppetlabs-nodejs"},
+    {"version_requirement":">= 1.9.5","name":"stankevich-python"},
+    {"version_requirement":">= 0.0.3","name":"treydock-gpg_key"}
+  ]
+}
+
