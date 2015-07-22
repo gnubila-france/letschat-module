@@ -15,41 +15,88 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+This module deploys a self-hosted chat app for small teams, [Let's Chat](http://sdelements.github.io/lets-chat/).
+
+![Screenshot of application](http://sdelements.github.io/lets-chat/assets/img/devices.png)
+
+*This module has only been tested on CentOS 6, but should function without issues on CentOS/RHEL 5 & 6.*
 
 ## Module Description
+The **letschat** module simplifies the configuration and deployment process of [Let's Chat](http://sdelements.github.io/lets-chat/), 
+by managing configuration for both the web application and the backend. This chat service is ideal for users who would like to host their own chat application that is hosted internally
+or hosted externally, or can be used simply in a scorched earth scenario, where one's normal hosted chat application
+is not accessible.
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
+This module helps simplify the configuration of MongoDB, allowing the user to create a new database, the user account for
+the web application to access the database, and configure the Node.js web application to suit the users needs by exposing most of the available
+configuration found in the [Let's Chat Configuration Reference](https://github.com/sdelements/lets-chat/wiki/Configuration).
 
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
 
 ## Setup
 
 ### What letschat affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+* Creates letschat service: /etc/init.d/letschat
+* MongoDB (2.6+) server and client packages and services
+* Python (2.7.x) packages as required by node-gyp
+* The Let's Chat Node.js Application and associated configuration
+* The installation of Node.js (0.10+) and npm packages and dependencies 
 
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
 
 ### Beginning with letschat
 
-The very basic steps needed for a user to get the module up and running.
+To install letschat with default parameters
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+```
+class letschat { }
+```
+*Please note that this install the web application and the database on the same
+host*
+
+To install and configure MongoDB backend with default parameters on a node:
+
+```
+class letschat::db {}
+```
+
+To install and configure just the letschat Node.js application with default parameters on a node:
+
+```
+class letschat::app {}
+```
+
+### Configuring MongoDB
+To configure MongoDB and create a new database:
+```
+class { 'letschat::db':
+  user          => 'lcadmin',
+  pass          => 'unsafepassword',
+  bind_ip       => '0.0.0.0',
+  database_name => 'letschat',
+  database_port => '27017',
+}
+```
+
+### Configuring letschat
+To configure Let's Chat and specify database settings:
+```
+class { 'letschat::app':
+    dbuser          => 'lcadmin',
+    dbpass          => 'unsafepassword',
+    dbname          => 'letschat',
+    dbhost          => 'dbserver0',
+    dbport          => '27017',
+    cookie          => 'thistest',
+    deploy_dir      => '/etc/letschat',
+    http_enabled    => true,
+    lc_bind_address => '0.0.0.0',
+    http_port       => '5000',
+    ssl_enabled     => false,
+    cookie          => 'secret',
+    authproviders   => 'local',
+    registration    => true,
+}
+```
 
 ## Usage
 
@@ -76,4 +123,4 @@ know what the ground rules for contributing are.
 
 If you aren't using changelog, put your release notes here (though you should
 consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+necessary or important to include here. Please use the `## ` header
