@@ -55,7 +55,7 @@ class letschat::app (
     ensure    => 'running',
     enable    => true,
     subscribe => File["$deploy_dir/settings.yml"],
-    require   => File["/etc/init.d/letschat"],
+    require   => File['/etc/init.d/letschat'],
   }
   exec { 'touch install.lock':
     cwd    => $deploy_dir,
