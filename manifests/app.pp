@@ -22,10 +22,10 @@ class letschat::app (
 
   $dependencies = ['gcc-c++', 'make', 'git', 'libicu-devel']
   class { 'nodejs':
-    require => Class['python'],
+    require => Class['letschat::python'],
   }
   
-  class { 'python': }
+  class { 'letschat::python': }
   
   package { $dependencies:
     ensure => present,
@@ -63,7 +63,7 @@ class letschat::app (
     unless => 'test -f install.lock',
     path   => ['/bin','/usr/bin'],
   } ->
-  exec { 'npm install':
+  exec { 'npm install --python=/usr/local/bin/python2.7':
     cwd     => $deploy_dir,
     path    => '/usr/bin',
     unless  => 'test -f install.lock',
