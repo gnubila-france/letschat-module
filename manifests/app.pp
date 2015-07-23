@@ -63,7 +63,7 @@ class letschat::app (
     unless => 'test -f install.lock',
     path   => ['/bin','/usr/bin'],
   } ->
-  exec { 'npm install --python=/usr/local/bin/python2.7':
+  exec { 'npm install --python=/usr/bin/python2.7':
     cwd     => $deploy_dir,
     path    => '/usr/bin',
     unless  => 'test -f install.lock',
