@@ -42,6 +42,7 @@ class letschat::app (
   file { "${deploy_dir}/settings.yml":
     ensure  => present,
     content => template('letschat/settings.yml.erb'),
+    require => Vcsrepo[$deploy_dir],
   }
   file { '/etc/init.d/letschat':
     ensure  => present,
@@ -67,5 +68,6 @@ class letschat::app (
     path    => '/usr/bin',
     unless  => 'test -f install.lock',
     require => Vcsrepo[$deploy_dir],
+    timeout => '0',
   }
 }
