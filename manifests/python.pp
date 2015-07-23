@@ -20,7 +20,7 @@ class letschat::python {
     unless  => '/usr/bin/test -d /etc/Python-2.7.3',
     timeout => '0',
   } ->
-  exec { 'bash configure --prefix=/usr/bin':
+  exec { 'bash configure --prefix=/usr':
     cwd     => '/etc/Python-2.7.3',
     path    => ['/bin','/usr/bin'],
     unless  => 'test -f /usr/bin/python2.7',
