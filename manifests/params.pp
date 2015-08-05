@@ -19,4 +19,15 @@ class letschat::params {
   $cookie             = 'secretsauce'
   $authproviders      = 'local'
   $registration       = true
+  $init_script_template = $::osfamily ? {
+    /Debian/  => $::lsbmajdistrelease ? {
+      8       => 'letschat/letschat-systemd.erb',
+      default => 'letschat/letschat.erb',
+    },
+    /RedHat/  => $::lsbmajdistrelease ? {
+      7       => 'letschat/letschat-systemd.erb',
+      default => 'letschat/letschat.erb',
+    },
+    default => 'letschat/letschat.erb',
+  }
 }
