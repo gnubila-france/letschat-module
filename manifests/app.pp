@@ -18,6 +18,7 @@ class letschat::app (
   $cookie               = $letschat::params::cookie,
   $authproviders        = $letschat::params::authproviders,
   $registration         = $letschat::params::registration,
+  $init_script_path     = $letschat::params::init_script_path,
   $init_script_template = $letschat::params::init_script_template,
 ) inherits letschat::params {
 
@@ -45,7 +46,7 @@ class letschat::app (
     content => template('letschat/settings.yml.erb'),
     require => Vcsrepo[$deploy_dir],
   }
-  file { '/etc/init.d/letschat':
+  file { $init_script_path:
     ensure  => present,
     content => template($init_script_template),
     mode    => '0755',
