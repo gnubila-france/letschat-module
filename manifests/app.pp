@@ -75,7 +75,7 @@ class letschat::app (
     cwd    => $deploy_dir,
     onlyif => 'service letschat status',
     unless => 'test -f install.lock',
-    path   => ['/bin','/usr/bin'],
+    path   => ['/bin','/usr/bin', '/usr/sbin'],
   } ->
   exec { $npm_install_command:
     cwd     => $deploy_dir,
