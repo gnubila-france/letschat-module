@@ -20,18 +20,30 @@ class letschat::app (
   $registration         = $letschat::params::registration,
   $init_script_path     = $letschat::params::init_script_path,
   $init_script_template = $letschat::params::init_script_template,
+  $use_system_python    = $letschat::params::use_system_python,
 ) inherits letschat::params {
 
   $dependencies = ['gcc-c++', 'make', 'git', 'libicu-devel']
-  class { 'nodejs':
-    require => Class['letschat::python'],
-  }
-  
-  class { 'letschat::python': }
-  
+
   package { $dependencies:
     ensure => present,
     before => Class['nodejs'],
+  }
+
+  if $use_system_python {
+    package { 'python':
+      ensure => 'installed',
+    }
+    $nodejs_python_dependency = Package['python']
+    $npm_install_command = ''
+  } else {
+    include '::letschat::python'
+    $nodejs_python_dependency = Class['::letschat::python']
+    $npm_install_command = 'npm install --python=/usr/bin/python2.7'
+  }
+
+  class { 'nodejs':
+    require => $nodejs_python_dependency,
   }
 
   vcsrepo { $deploy_dir:
@@ -57,15 +69,15 @@ class letschat::app (
     ensure    => 'running',
     enable    => true,
     subscribe => File["${deploy_dir}/settings.yml"],
-    require   => File['/etc/init.d/letschat'],
+    require   => File[$init_script_path],
   }
   exec { 'touch install.lock':
     cwd    => $deploy_dir,
-    onlyif => '/etc/init.d/letschat status',
+    onlyif => 'service letschat status',
     unless => 'test -f install.lock',
     path   => ['/bin','/usr/bin'],
   } ->
-  exec { 'npm install --python=/usr/bin/python2.7':
+  exec { $npm_install_command:
     cwd     => $deploy_dir,
     path    => '/usr/bin',
     unless  => 'test -f install.lock',

@@ -31,4 +31,5 @@ class letschat::params {
     },
     default => 'letschat/letschat.erb',
   }
+  $use_system_python = false,
 }
