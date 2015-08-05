@@ -35,7 +35,7 @@ class letschat::app (
       ensure => 'installed',
     }
     $nodejs_python_dependency = Package['python']
-    $npm_install_command = ''
+    $npm_install_command = 'npm install'
   } else {
     include '::letschat::python'
     $nodejs_python_dependency = Class['::letschat::python']
