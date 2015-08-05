@@ -1,5 +1,9 @@
+[Unit]
+Description=Unit for managing let's chat service
+
 [Service]
-ExecStart=/usr/bin/node <%= @deploy_dir %>/app.js
+ExecStart=/usr/bin/node app.js
+WorkingDirectory=<%= @deploy_dir %>
 Restart=always
 StandardOutput=Syslog
 SyslogIdentifier=letschat
