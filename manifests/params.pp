@@ -35,8 +35,10 @@ class letschat::params {
   $init_script_template = $init_script_path ? {
     '/etc/systemd/system/letschat.service' => 'letschat/letschat-systemd.erb',
     default                                => 'letschat/letschat.erb',
+  }
   $init_script_mode = $init_script_path ? {
     '/etc/systemd/system/letschat.service' => '0644',
     default                                => '0755',
+  }
   $use_system_python = false
 }
