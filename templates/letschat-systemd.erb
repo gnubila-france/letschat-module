@@ -1,5 +1,5 @@
 [Service]
-ExecStart=node <%= @deploy_dir %>/app.js
+ExecStart=/usr/bin/node <%= @deploy_dir %>/app.js
 Restart=always
 StandardOutput=Syslog
 SyslogIdentifier=letschat
