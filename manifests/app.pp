@@ -1,5 +1,7 @@
 class letschat::app (
   $deploy_dir           = $letschat::params::lc_deploy_dir,
+  $user                 = $letschat::params::lc_user,
+  $group                = $letschat::params::lc_group,
   $http_enabled         = $letschat::params::http_enabled,
   $lc_bind_address      = $letschat::params::lc_bind_address,
   $http_port            = $letschat::params::http_port,
@@ -20,6 +22,7 @@ class letschat::app (
   $registration         = $letschat::params::registration,
   $init_script_path     = $letschat::params::init_script_path,
   $init_script_template = $letschat::params::init_script_template,
+  $init_script_mode     = $letschat::params::init_script_mode,
   $use_system_python    = $letschat::params::use_system_python,
 ) inherits letschat::params {
 
@@ -49,21 +52,25 @@ class letschat::app (
   vcsrepo { $deploy_dir:
     ensure   => present,
     provider => git,
+    user     => $user,
     source   => 'https://github.com/sdelements/lets-chat.git',
     require  => Class['nodejs'],
   }
 
   file { "${deploy_dir}/settings.yml":
-    ensure  => present,
+    ensure  => 'file',
+    owner   => $user,
+    group   => $group,
+    mode    => '0640',
     content => template('letschat/settings.yml.erb'),
     require => Vcsrepo[$deploy_dir],
   }
   file { $init_script_path:
-    ensure  => present,
-    content => template($init_script_template),
-    mode    => '0755',
+    ensure  => 'file',
     owner   => 'root',
     group   => 'root',
+    mode    => $init_script_mode,
+    content => template($init_script_template),
   }
   service { 'letschat':
     ensure    => 'running',
@@ -73,15 +80,17 @@ class letschat::app (
   }
   exec { 'touch install.lock':
     cwd    => $deploy_dir,
+    user   => $user,
     onlyif => 'service letschat status',
     unless => 'test -f install.lock',
     path   => ['/bin','/usr/bin', '/usr/sbin'],
   } ->
   exec { $npm_install_command:
     cwd     => $deploy_dir,
-    path    => '/usr/bin',
+    user    => $user,
     unless  => 'test -f install.lock',
-    require => Vcsrepo[$deploy_dir],
     timeout => '0',
+    path    => '/usr/bin',
+    require => Vcsrepo[$deploy_dir],
   }
 }
