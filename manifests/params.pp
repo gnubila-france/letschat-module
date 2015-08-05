@@ -21,9 +21,9 @@ class letschat::params {
   $registration         = true
   $init_script_path     = '/etc/systemd/system/letschat.service'
   $init_script_template = $::osfamily ? {
-    /Debian/  = > $::lsbmajdistrelease ? {
-      8       = > 'letschat/letschat-systemd.erb',
-      default = > 'letschat/letschat.erb',
+    /Debian/  => $::lsbmajdistrelease ? {
+      8       => 'letschat/letschat-systemd.erb',
+      default => 'letschat/letschat.erb',
     },
     /RedHat/  => $::lsbmajdistrelease ? {
       7       => 'letschat/letschat-systemd.erb',
@@ -31,5 +31,5 @@ class letschat::params {
     },
     default => 'letschat/letschat.erb',
   }
-  $use_system_python = false,
+  $use_system_python = false
 }
