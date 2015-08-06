@@ -52,6 +52,7 @@ class letschat::params {
   $ldap_search_filter = '(uid={{username}})'
   $ldap_field_mappings = {
     'uid'         => 'uid',
+    'username'    => 'uid',
     'firstName'   => 'givenName',
     'lastName'    => 'sn',
     'displayName' => 'givenName',
