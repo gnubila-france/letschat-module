@@ -57,4 +57,5 @@ class letschat::params {
     'displayName' => 'givenName',
     'email'       => 'mail',
   }
+  $revision = 'master'
 }

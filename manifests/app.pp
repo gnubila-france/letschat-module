@@ -1,5 +1,6 @@
 class letschat::app (
   $deploy_dir            = $letschat::params::lc_deploy_dir,
+  $revision              = $letschat::params::revision,
   $user                  = $letschat::params::lc_user,
   $group                 = $letschat::params::lc_group,
   $user_home             = $letschat::params::lc_user_home,
@@ -64,6 +65,7 @@ class letschat::app (
     provider => git,
     user     => $user,
     source   => 'https://github.com/sdelements/lets-chat.git',
+    revision => $revision,
     require  => Class['nodejs'],
   }
 
