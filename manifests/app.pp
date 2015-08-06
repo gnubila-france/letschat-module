@@ -2,6 +2,7 @@ class letschat::app (
   $deploy_dir            = $letschat::params::lc_deploy_dir,
   $user                  = $letschat::params::lc_user,
   $group                 = $letschat::params::lc_group,
+  $user_home             = $letschat::params::lc_user_home,
   $http_enabled          = $letschat::params::http_enabled,
   $lc_bind_address       = $letschat::params::lc_bind_address,
   $http_port             = $letschat::params::http_port,
@@ -107,6 +108,7 @@ class letschat::app (
     user    => $user,
     unless  => 'test -f install.lock',
     timeout => '0',
+    environment => "HOME=${user_home}",
     path    => '/usr/bin',
     require => Vcsrepo[$deploy_dir],
   }
