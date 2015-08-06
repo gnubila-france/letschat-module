@@ -81,6 +81,14 @@ class letschat::app (
     mode    => $init_script_mode,
     content => template($init_script_template),
   }
+  if $init_script_path == '/etc/systemd/system/letschat.service' {
+    # run systemctl daemon-reload on unit changes
+    exec { 'systemctl daemon-reload':
+      refreshonly => true,
+      subscribe   => File[$init_script_path],
+      path        => ['/bin','/usr/bin', '/usr/sbin'],
+    }
+  }
   service { 'letschat':
     ensure    => 'running',
     enable    => true,
