@@ -117,8 +117,9 @@ class letschat::app (
 
   if $ldap_auth_enabled {
     nodejs::npm { 'lets-chat-ldap':
-      target  => $deploy_dir,
-      require => Exec[$npm_install_command],
+      target          => $deploy_dir,
+      install_options => [ '--save' ],
+      require         => Exec[$npm_install_command],
     }
   }
 }
