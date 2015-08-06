@@ -41,4 +41,19 @@ class letschat::params {
     default                                => '0755',
   }
   $use_system_python = false
+  $ldap_auth_enabled = false
+  $ldap_url = 'ldap://ldap.example.com'
+  $ldap_tls_ca_cert = undef
+  $ldap_bind_dn = 'uid=letschat,cn=sysusers,cn=accounts,dc=example,dc=com'
+  $ldap_bind_credentials = 'Pa$$word123'
+  $ldap_search_base = 'cn=users,cn=accounts,dc=example,dc=com'
+  $ldap_search_scope = 'one'
+  $ldap_search_filter = '(uid={{username}})'
+  $ldap_field_mappings = {
+    'uid'         => 'uid',
+    'firstName'   => 'givenName',
+    'lastName'    => 'sn',
+    'displayName' => 'givenName',
+    'email'       => 'mail',
+  }
 }
