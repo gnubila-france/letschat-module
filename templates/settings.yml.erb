@@ -40,14 +40,14 @@ auth:
     enableRegistration: <%= @registration %>
 
 <% if @ldap_auth_enabled -%>
-    # https://github.com/sdelements/lets-chat-ldap
-    ldap:
+  # https://github.com/sdelements/lets-chat-ldap
+  ldap:
     connect_settings:
       url: <%= @ldap_url %>
-      <% if @ldap_tls_ca_cert -%>
+      <%- if @ldap_tls_ca_cert -%>
       tlsOptions:
         ca: <%= @ldap_tls_ca_cert %>
-      <% end -%>
+      <%- end -%>
     bind_options:
       bindDN: <%= @ldap_bind_dn %>
       bindCredentials: <%= @ldap_bind_credentials %>
