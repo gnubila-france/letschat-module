@@ -25,6 +25,9 @@ files:
 
 xmpp:
   enable: <%= @xmpp_enabled %>
+  debug:
+    handled: <%= @xmpp_debug_handled %>
+    unhandled: <%= @xmpp_debug_unhandled %>
   port: <%= @xmpp_port %>
   domain: <%= @xmpp_domain %>
   <%- if @xmpp_tls_enabled -%>
@@ -39,6 +42,11 @@ database:
 
 secrets:
   cookie: <%= @cookie %>
+
+rooms:
+  private: <%= @rooms_private %>
+  roster: <%= @rooms_roster %>
+  expire: <%= @rooms_expire %>
 
 auth:
   providers: [<%= @authproviders %>]

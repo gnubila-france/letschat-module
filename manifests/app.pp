@@ -17,6 +17,8 @@ class letschat::app (
   $xmpp_tls_enabled      = $letschat::params::xmpp_tls_enabled,
   $xmpp_tls_key          = $letschat::params::xmpp_tls_key,
   $xmpp_tls_cert         = $letschat::params::xmpp_tls_cert,
+  $xmpp_debug_handled    = $letschat::params::xmpp_debug_handled,
+  $xmpp_debug_unhandled  = $letschat::params::xmpp_debug_unhandled,
   $dbuser                = $letschat::params::db_user,
   $dbpass                = $letschat::params::db_pass,
   $dbhost                = $letschat::params::db_host,
@@ -38,6 +40,9 @@ class letschat::app (
   $ldap_search_scope     = $letschat::params::ldap_search_scope,
   $ldap_search_filter    = $letschat::params::ldap_search_filter,
   $ldap_field_mappings   = $letschat::params::ldap_field_mappings,
+  $rooms_private         = $letschat::params::rooms_private,
+  $rooms_roster          = $letschat::params::rooms_roster,
+  $rooms_expire          = $letschat::params::rooms_expire,
 ) inherits letschat::params {
 
   $dependencies = ['gcc-c++', 'make', 'git', 'libicu-devel']

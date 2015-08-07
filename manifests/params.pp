@@ -12,6 +12,8 @@ class letschat::params {
   $xmpp_tls_enabled     = false
   $xmpp_tls_key         = './server.key'
   $xmpp_tls_cert        = './server.crt'
+  $xmpp_debug_handled   = false
+  $xmpp_debug_unhandled = false
   $db_user              = 'lcadmin'
   $db_pass              = 'changeme'
   $db_host              = 'localhost'
@@ -62,4 +64,7 @@ class letschat::params {
     'email'       => 'mail',
   }
   $revision = 'master'
+  $rooms_private = false
+  $rooms_roster = 'online'
+  $rooms_expire = 360
 }
