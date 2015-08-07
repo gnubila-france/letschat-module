@@ -45,6 +45,7 @@ class letschat::app (
   $private_enabled       = $letschat::params::private_enabled,
   $private_roster        = $letschat::params::private_roster,
   $private_expire        = $letschat::params::private_expire,
+  $i18n_locale           = $letschat::params::i18n_locale,
 ) inherits letschat::params {
 
   $dependencies = ['gcc-c++', 'make', 'git', 'libicu-devel']

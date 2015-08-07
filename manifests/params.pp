@@ -69,4 +69,5 @@ class letschat::params {
   $private_enabled = false
   $private_roster = 'online'
   $private_expire = 360
+  $i18n_locale = 'en'
 }
