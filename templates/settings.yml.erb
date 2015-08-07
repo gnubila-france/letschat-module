@@ -27,6 +27,12 @@ xmpp:
   enable: <%= @xmpp_enabled %>
   port: <%= @xmpp_port %>
   domain: <%= @xmpp_domain %>
+  <%- if @xmpp_tls_enabled -%>
+  tls:
+    enable: true
+    key: <%= @xmpp_tls_key %>
+    cert: <%= @xmpp_tls_cert %>
+  <%- end -%>
 
 database:
   uri: mongodb://<%= @dbuser %>:<%= @dbpass %>@<%= @dbhost %>:<%= @dbport %>/<%= @dbname %>

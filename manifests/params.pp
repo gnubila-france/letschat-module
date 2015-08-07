@@ -9,6 +9,9 @@ class letschat::params {
   $xmpp_enabled         = false
   $xmpp_port            = '5222'
   $xmpp_domain          = 'example.com'
+  $xmpp_tls_enabled     = false
+  $xmpp_tls_key         = './server.key'
+  $xmpp_tls_cert        = './server.crt'
   $db_user              = 'lcadmin'
   $db_pass              = 'changeme'
   $db_host              = 'localhost'
