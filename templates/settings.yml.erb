@@ -17,14 +17,9 @@ https:
   key: <%= @ssl_key %>
   cert: <%= @ssl_cert %>
 
-files:
-  enable: true
-  provider: local
-  local:
-    dir: uploads
-
 xmpp:
   enable: <%= @xmpp_enabled %>
+  roomCreation: <%= @xmpp_room_creation %>
   debug:
     handled: <%= @xmpp_debug_handled %>
     unhandled: <%= @xmpp_debug_unhandled %>
@@ -43,10 +38,11 @@ database:
 secrets:
   cookie: <%= @cookie %>
 
-rooms:
-  private: <%= @rooms_private %>
-  roster: <%= @rooms_roster %>
-  expire: <%= @rooms_expire %>
+files:
+  enable: true
+  provider: local
+  local:
+    dir: uploads
 
 auth:
   providers: [<%= @authproviders %>]
@@ -75,3 +71,11 @@ auth:
       <%= k -%>: <%= @ldap_field_mappings[k] %>
       <%- end -%>
 <% end -%>
+
+private:
+  enable: <%= @private_enabled %>
+  roster: <%= @private_roster %>
+  expire: <%= @private_expire %>
+
+rooms:
+  private: <%= @rooms_private %>

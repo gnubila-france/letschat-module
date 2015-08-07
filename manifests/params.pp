@@ -7,6 +7,7 @@ class letschat::params {
   $ssl_key              = 'key.pem'
   $ssl_cert             = 'certificate.pem'
   $xmpp_enabled         = false
+  $xmpp_room_creation   = false
   $xmpp_port            = '5222'
   $xmpp_domain          = 'example.com'
   $xmpp_tls_enabled     = false
@@ -65,6 +66,7 @@ class letschat::params {
   }
   $revision = 'master'
   $rooms_private = false
-  $rooms_roster = 'online'
-  $rooms_expire = 360
+  $private_enabled = false
+  $private_roster = 'online'
+  $private_expire = 360
 }
