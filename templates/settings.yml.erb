@@ -57,7 +57,7 @@ auth:
         scope: <%= @ldap_search_scope %>
         filter: <%= @ldap_search_filter %>
     field_mappings:
-      <% @ldap_field_mappings.keys.sort.each do |k| -%>
+      <%- @ldap_field_mappings.keys.sort.each do |k| -%>
       <%= k -%>: <%= @ldap_field_mappings[k] %>
-      <% end -%>
+      <%- end -%>
 <% end -%>
